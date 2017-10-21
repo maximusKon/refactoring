@@ -2,10 +2,10 @@ package ru.maximov.refactoring
 
 import java.util.*
 
-class Customer(private val name:String) {
-    private val rentals : Vector<Rental> = Vector()
+data class Customer(val name:String) {
+    val rentals : Vector<Rental> = Vector()
 
-    fun addRental(arg:Rental) = rentals::addElement
+    fun addRental(arg:Rental) = rentals.addElement(arg)
 
     fun statement() : String {
         var totalAmount = 0.0
