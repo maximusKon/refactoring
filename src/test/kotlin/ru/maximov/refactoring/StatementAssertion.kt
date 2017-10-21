@@ -2,24 +2,44 @@ package ru.maximov.refactoring
 
 import org.junit.jupiter.api.Assertions.assertTrue
 
-class StatementAssertion(private val statement:String) {
-    fun forCustomer(customer: Customer) : StatementAssertion {
-        assertTrue(statement.contains("Учёт аренды для ${customer.name}"))
-        return this
+object StatementAssertion {
+
+    class ForCustomer(private val statement:String) {
+
+        fun forCustomer(customer: Customer): HasAmountForMovie {
+            assertTrue(statement.contains("Учёт аренды для ${customer.name}"))
+            return HasAmountForMovie(statement)
+        }
+
     }
 
-    fun hasAmountForMovie(movie: Movie, amount: Double) : StatementAssertion {
-        assertTrue(statement.contains("\t ${movie.title} \t $amount"))
-        return this
+    class HasAmountForMovie(private val statement:String) {
+
+        fun hasAmountForMovie(movie: Movie, amount: Double): HasAmountForMovie {
+            assertTrue(statement.contains("\t ${movie.title} \t $amount"))
+            return HasAmountForMovie(statement)
+        }
+
+        fun and() : WithTotalAmount{
+            return WithTotalAmount(statement)
+        }
     }
 
-    fun withTotalAmount(totalAmount: Double) : StatementAssertion {
-        assertTrue(statement.contains("Сумма задолженности составляет $totalAmount"))
-        return this
+    class WithTotalAmount(private val statement:String) {
+
+        fun withTotalAmount(totalAmount: Double): CustomerGotFrequentRenterPoints {
+            assertTrue(statement.contains("Сумма задолженности составляет $totalAmount"))
+            return CustomerGotFrequentRenterPoints(statement)
+        }
+
     }
 
-    fun custumerGotFrequentRenterPoints(frequentRenterPoints: Int) : StatementAssertion {
-        assertTrue(statement.contains("Вы заработали $frequentRenterPoints очков за активность"))
-        return this
+    class CustomerGotFrequentRenterPoints(private val statement:String) {
+
+        fun customerGotFrequentRenterPoints(frequentRenterPoints: Int) {
+            assertTrue(statement.contains("Вы заработали $frequentRenterPoints очков за активность"))
+        }
+
     }
+
 }

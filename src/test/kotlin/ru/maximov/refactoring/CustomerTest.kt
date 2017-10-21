@@ -31,8 +31,9 @@ internal class CustomerTest {
         assertThatIn(statement)
                 .forCustomer(customer)
                 .hasAmountForMovie(movie, 21.0)
+                .and()
                 .withTotalAmount(21.0)
-                .custumerGotFrequentRenterPoints(2)
+                .customerGotFrequentRenterPoints(2)
     }
 
     @Test
@@ -47,8 +48,9 @@ internal class CustomerTest {
         assertThatIn(statement)
                 .forCustomer(customer)
                 .hasAmountForMovie(movie, 2.0)
+                .and()
                 .withTotalAmount(2.0)
-                .custumerGotFrequentRenterPoints(1)
+                .customerGotFrequentRenterPoints(1)
     }
 
     @Test
@@ -63,8 +65,9 @@ internal class CustomerTest {
         assertThatIn(statement)
                 .forCustomer(customer)
                 .hasAmountForMovie(movie, 3.5)
+                .and()
                 .withTotalAmount(3.5)
-                .custumerGotFrequentRenterPoints(1)
+                .customerGotFrequentRenterPoints(1)
     }
 
     @Test
@@ -79,8 +82,9 @@ internal class CustomerTest {
         assertThatIn(statement)
                 .forCustomer(customer)
                 .hasAmountForMovie(movie, 1.5)
+                .and()
                 .withTotalAmount(1.5)
-                .custumerGotFrequentRenterPoints(1)
+                .customerGotFrequentRenterPoints(1)
     }
 
     @Test
@@ -95,8 +99,9 @@ internal class CustomerTest {
         assertThatIn(statement)
                 .forCustomer(customer)
                 .hasAmountForMovie(movie, 3.0)
+                .and()
                 .withTotalAmount(3.0)
-                .custumerGotFrequentRenterPoints(1)
+                .customerGotFrequentRenterPoints(1)
     }
 
     @Test
@@ -115,12 +120,13 @@ internal class CustomerTest {
                 .forCustomer(customer)
                 .hasAmountForMovie(movie1, 3.0)
                 .hasAmountForMovie(movie2, 3.0)
+                .and()
                 .withTotalAmount(6.0)
-                .custumerGotFrequentRenterPoints(2)
+                .customerGotFrequentRenterPoints(2)
     }
 
-    private fun assertThatIn(statement: String) : StatementAssertion {
-        return StatementAssertion(statement)
+    private fun assertThatIn(statement: String) : StatementAssertion.ForCustomer {
+        return StatementAssertion.ForCustomer(statement)
     }
 
 }
