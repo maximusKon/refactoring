@@ -8,7 +8,6 @@ data class Customer(val name:String) {
     fun addRental(arg:Rental) = rentals.addElement(arg)
 
     fun statement() : String {
-        var totalAmount = 0.0
         var frequentRenterPoints = 0
         val rentals = this.rentals.elements()
         var result = "Учёт аренды для $name\n"
@@ -19,13 +18,21 @@ data class Customer(val name:String) {
 
             //показать результаты для этой аренды
             result += "\t ${each.movie.title} \t ${each.getCharge()} \n"
-            totalAmount += each.getCharge()
         }
         //добавить нижний колонтитул
-        result += "Сумма задолженности составляет $totalAmount \n"
+        result += "Сумма задолженности составляет ${getTotalCharge()} \n"
         result += "Вы заработали $frequentRenterPoints очков за активность"
 
         return result
     }
 
+    private fun getTotalCharge(): Double {
+        var result = 0.0
+        val rentals = this.rentals.elements()
+        while(rentals.hasMoreElements()) {
+            val each = rentals.nextElement()
+            result += each.getCharge()
+        }
+        return result
+    }
 }
