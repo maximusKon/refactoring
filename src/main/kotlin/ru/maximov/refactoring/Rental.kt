@@ -1,6 +1,6 @@
 package ru.maximov.refactoring
 
-data class Rental(val movie:Movie, val daysRented: Int){
+data class Rental(val movie: Movie, private val daysRented: Int){
 
     fun getCharge(): Double {
         var result = 0.0
@@ -20,14 +20,10 @@ data class Rental(val movie:Movie, val daysRented: Int){
         return result
     }
 
-    fun getFrequentRenterPoints(): Int {
-        //добавить очки для активного арендатора
-        var frequentRenterPoints = 1
-        //бонус за аренду новинки на два дня
-        if ((movie.priceCode == Movie.NEW_RELEASE) &&
-                daysRented > 1)
-            frequentRenterPoints++
+    fun getFrequentRenterPoints(): Int =
+        if ((movie.priceCode == Movie.NEW_RELEASE) && daysRented > 1)
+            2
+        else
+            1
 
-        return frequentRenterPoints
-    }
 }
