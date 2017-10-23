@@ -13,11 +13,7 @@ data class Customer(val name:String) {
         val rentals = this.rentals.elements()
         var result = "Учёт аренды для $name\n"
         while(rentals.hasMoreElements()){
-            var thisAmount = 0.0
             val each = rentals.nextElement()
-
-            //определить сумму для каждой строки
-            thisAmount = each.getCharge()
 
             //добавить очки для активного арендатора
             frequentRenterPoints++
@@ -27,8 +23,8 @@ data class Customer(val name:String) {
                 frequentRenterPoints++
 
             //показать результаты для этой аренды
-            result += "\t ${each.movie.title} \t $thisAmount \n"
-            totalAmount += thisAmount
+            result += "\t ${each.movie.title} \t ${each.getCharge()} \n"
+            totalAmount += each.getCharge()
         }
         //добавить нижний колонтитул
         result += "Сумма задолженности составляет $totalAmount \n"
