@@ -19,5 +19,15 @@ data class Rental(val movie:Movie, val daysRented: Int){
         }
         return result
     }
-    
+
+    fun getFrequentRenterPoints(): Int {
+        //добавить очки для активного арендатора
+        var frequentRenterPoints = 1
+        //бонус за аренду новинки на два дня
+        if ((movie.priceCode == Movie.NEW_RELEASE) &&
+                daysRented > 1)
+            frequentRenterPoints++
+
+        return frequentRenterPoints
+    }
 }

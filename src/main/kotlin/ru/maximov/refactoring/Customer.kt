@@ -15,12 +15,7 @@ data class Customer(val name:String) {
         while(rentals.hasMoreElements()){
             val each = rentals.nextElement()
 
-            //добавить очки для активного арендатора
-            frequentRenterPoints++
-            //бонус за аренду новинки на два дня
-            if((each.movie.priceCode == Movie.NEW_RELEASE) &&
-                    each.daysRented > 1)
-                frequentRenterPoints++
+            frequentRenterPoints += each.getFrequentRenterPoints()
 
             //показать результаты для этой аренды
             result += "\t ${each.movie.title} \t ${each.getCharge()} \n"
