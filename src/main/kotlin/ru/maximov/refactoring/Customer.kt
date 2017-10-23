@@ -22,6 +22,21 @@ data class Customer(val name:String) {
         return result
     }
 
+    fun htmlStatement(): String {
+        val rentals = this.rentals.elements()
+        var result = "<H1>Операции аренды для <EM>$name</EM></H1><P>\n"
+        while(rentals.hasMoreElements()){
+            val each = rentals.nextElement()
+            //показать результаты для этой аренды
+            result += "${each.movie.title}: ${each.getCharge()}<BR>\n"
+        }
+        //добавить нижний колонтитул
+        result += "<P>Ваша задолженность составляет <EM>${getTotalCharge()}</EM><P>"
+        result += "На этой аренде вы заработали <EM>${getTotalFrequentRenterPoints()}</EM> очков за активность<P>"
+
+        return result
+    }
+
     private fun getTotalFrequentRenterPoints() : Int{
         var result = 0
         val rentals = this.rentals.elements()
