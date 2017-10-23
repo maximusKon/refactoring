@@ -17,7 +17,7 @@ data class Customer(val name:String) {
             val each = rentals.nextElement()
 
             //определить сумму для каждой строки
-            thisAmount = amountFor(each)
+            thisAmount = each.getCharge()
 
             //добавить очки для активного арендатора
             frequentRenterPoints++
@@ -37,21 +37,4 @@ data class Customer(val name:String) {
         return result
     }
 
-    private fun amountFor(aRental: Rental): Double {
-        var result = 0.0
-        when (aRental.movie.priceCode) {
-            Movie.REGULAR -> {
-                result += 2
-                if (aRental.daysRented > 2)
-                    result += (aRental.daysRented - 2) * 1.5
-            }
-            Movie.NEW_RELEASE -> result += aRental.daysRented * 3
-            Movie.CHILDRENS -> {
-                result += 1.5
-                if (aRental.daysRented > 3)
-                    result += (aRental.daysRented - 3) * 1.5
-            }
-        }
-        return result
-    }
 }
