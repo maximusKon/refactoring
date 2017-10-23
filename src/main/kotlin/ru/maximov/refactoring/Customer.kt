@@ -17,19 +17,7 @@ data class Customer(val name:String) {
             val each = rentals.nextElement()
 
             //определить сумму для каждой строки
-            when (each.movie.priceCode) {
-                Movie.REGULAR -> {
-                    thisAmount += 2
-                    if(each.daysRented > 2)
-                        thisAmount += (each.daysRented - 2) * 1.5
-                }
-                Movie.NEW_RELEASE -> thisAmount+=each.daysRented * 3
-                Movie.CHILDRENS -> {
-                    thisAmount += 1.5
-                    if(each.daysRented > 3)
-                        thisAmount += (each.daysRented - 3) * 1.5
-                }
-            }
+            thisAmount = amountFor(each)
 
             //добавить очки для активного арендатора
             frequentRenterPoints++
@@ -47,5 +35,23 @@ data class Customer(val name:String) {
         result += "Вы заработали $frequentRenterPoints очков за активность"
 
         return result
+    }
+
+    private fun amountFor(each: Rental): Double {
+        var thisAmount1 = 0.0
+        when (each.movie.priceCode) {
+            Movie.REGULAR -> {
+                thisAmount1 += 2
+                if (each.daysRented > 2)
+                    thisAmount1 += (each.daysRented - 2) * 1.5
+            }
+            Movie.NEW_RELEASE -> thisAmount1 += each.daysRented * 3
+            Movie.CHILDRENS -> {
+                thisAmount1 += 1.5
+                if (each.daysRented > 3)
+                    thisAmount1 += (each.daysRented - 3) * 1.5
+            }
+        }
+        return thisAmount1
     }
 }
