@@ -30,8 +30,5 @@ class Movie {
 
 
     fun getFrequentRenterPoints(daysRented: Int): Int =
-            if ((priceCode == Movie.NEW_RELEASE) && daysRented > 1)
-                2
-            else
-                1
+            price.getFrequentRenterPoints(daysRented)
 }
